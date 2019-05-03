@@ -1,24 +1,37 @@
 import React, { Component } from 'react'
-
 import './index.css'
 import Hero from '../Hero'
 import Filters from '../Filters'
-import data from '../../scripts/data'
+import moment from 'moment'
 
-const filters = {
-  dateFrom: data.today, // Proviene del archivo data.js
-  dateTo: new Date(data.today),
-  country: '',
-  price: 0,
-  rooms: 0
-}
+
 
 class App extends Component {
+  constructor() {  
+    super()
+
+    this.state = {
+      filters: {
+        dateFrom: moment().format('YYYY-MM-DD'),
+        dateTo: moment().add(1,'days').format('YYYY-MM-DD'),
+        country: '',
+        price: 0,
+        rooms: 0
+      }
+    }
+  }
+
+  handleFilterChange = (payload) => {
+    this.setState(prevState => ({
+      filters: {...prevState.filters, payload}
+    }))
+  }
+
   render() {
     return (
       <div>
-        <Hero filters={ filters}/>
-        <Filters filters={ filters} />
+        <Hero filters={ this.state.filters}/>
+        <Filters filters={ this.state.filters} onFilterChange={ this.handleFilterChange }/>
       </div>
     )
   }
