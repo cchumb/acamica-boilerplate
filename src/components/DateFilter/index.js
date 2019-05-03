@@ -7,7 +7,7 @@ class DateFilter extends Component {
     }
     handleDateChange = (event) => {
         const { name, value } = event.target
-        this.props.onDateChange({ [name]: value })
+        this.props.onDateChange(event.target)
     }
   render() {
     return (

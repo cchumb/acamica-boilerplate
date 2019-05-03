@@ -23,11 +23,15 @@ class App extends Component {
 
   handleFilterChange = (payload) => {
     this.setState(prevState => ({
-      filters: {...prevState.filters, payload}
+      filters: {
+        ...prevState.filters,
+        [payload.name]: payload.value
+      }
     }))
   }
 
   render() {
+    console.log(this.state)
     return (
       <div>
         <Hero filters={ this.state.filters}/>
