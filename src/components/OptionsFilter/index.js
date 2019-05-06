@@ -3,15 +3,12 @@ import React, { Component } from 'react'
 class OptionsFilter extends Component {
   constructor(props) {  
     super(props)
-
     this.handleOptionChange = this.handleOptionChange.bind(this)
   }
 
   handleOptionChange(event) {
-    let payload = this.props.filters
-    payload[event.target.name] = event.target.value
-  
-    this.props.onFilterChange(payload)
+    const { name, value } = event.target
+    this.props.onFilterChange({name: name, value: value})
   }
 
   render() {
@@ -19,9 +16,9 @@ class OptionsFilter extends Component {
       <div className="field">
         <div className="control has-icons-left">
           <div className="select" style={ {width: '100%'} }>
-            <select style={ {width: '100%'} }>
+            <select style={ {width: '100%'} } name={ this.props.name } onChange={ this.handleOptionChange }>
               { this.props.options.map((opt) =>
-                <option value={opt.value} onChange={ this.handleOptionChange } name={ this.props.name }>{opt.name}</option>
+                <option value={opt.value} >{opt.name}</option>
               )}
             </select>
           </div>
