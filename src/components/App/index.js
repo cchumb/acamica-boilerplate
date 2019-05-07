@@ -13,8 +13,8 @@ class App extends Component {
 
     this.state = {
       filters: {
-        dateFrom: '' ,
-        dateTo: '',
+        dateFrom: moment().format('YYYY-MM-DD') ,
+        dateTo: moment().add(1, 'days').format('YYYY-MM-DD'),
         country: '',
         price: 0,
         rooms: 0
@@ -31,19 +31,21 @@ class App extends Component {
       hotels: data,
       hotelsBkp: data
     }))
+    await this.filterFunctions()
   }
 
-  handleFilterChange = async (payload) => {
-    await this.setState(prevState => ({
-      filters: {
-        ...prevState.filters,
-        [payload.name]: payload.value
-      }
-    }))
-    let hotelFilters = await this.state.hotelsBkp.filter( (data)=>{
-      // console.log(moment.unix(data.availabilityFrom))
+  filterFunctions = () => {
+    let hotels = this.state.hotelsBkp.filter( (data)=>{
+
+      // COMENTADO PORQUE LA API NO DEVUELVE BIEN EL DATO DE LA FECHA
       // if(this.state.filters.dateFrom !== "" ){
-      //   if( moment.unix(data.availabilityFrom).format('YYYY-MM-DD') !== this.state.filters.dateFrom ){
+      //   if ( moment.unix(data.availabilityFrom).format('YYYYMMDD') < moment(this.state.filters.dateFrom).format('YYYYMMDD')){
+      //     return false
+      //   }
+      // }
+
+      // if(this.state.filters.dateTo !== "" ){
+      //   if ( moment.unix(data.availabilityTo).format('YYYYMMDD') <= moment(this.state.filters.dateTo).format('YYYYMMDD')){
       //     return false
       //   }
       // }
@@ -66,9 +68,19 @@ class App extends Component {
           return false
         }
       }
-      
       return true
     })
+    return hotels
+  }
+
+  handleFilterChange = async (payload) => {
+    await this.setState(prevState => ({
+      filters: {
+        ...prevState.filters,
+        [payload.name]: payload.value
+      }
+    }))
+    let hotelFilters = await this.filterFunctions()
 
     await this.setState({
       hotels: hotelFilters

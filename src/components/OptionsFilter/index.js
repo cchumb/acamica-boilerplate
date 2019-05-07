@@ -18,7 +18,7 @@ class OptionsFilter extends Component {
           <div className="select" style={ {width: '100%'} }>
             <select style={ {width: '100%'} } name={ this.props.name } onChange={ this.handleOptionChange }>
               { this.props.options.map((opt) =>
-                <option value={opt.value} >{opt.name}</option>
+                <option value={opt.value} key={opt.name}>{opt.name}</option>
               )}
             </select>
           </div>

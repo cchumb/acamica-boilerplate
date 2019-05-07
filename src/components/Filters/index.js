@@ -1,17 +1,11 @@
 import React, { Component } from 'react'
 import DateFilter from '../DateFilter'
 import OptionsFilter from '../OptionsFilter'
-import moment from 'moment'
 
 class Filter extends Component {
 
   constructor(props) {
     super(props)
-
-    // this.state = {
-    //   dateFrom: props.filters.dateFrom.format('YYYY-MM-DD'),
-    //   dateTo: props.filters.dateTo.format('YYYY-MM-DD')
-    // }
   }
 
   render() {

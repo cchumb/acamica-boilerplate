@@ -25,7 +25,7 @@ class Hotels extends Component {
                     }
                     <div className="columns is-multiline">
                         {
-                            this.props.data.map((hotel) => <div className="column is-3"> <Hotel data={ hotel } /> </div>)
+                            this.props.data.map((hotel) => <div className="column is-3" key={hotel.name}> <Hotel data={ hotel } /> </div>)
                         }
                     </div>
                 </div>
